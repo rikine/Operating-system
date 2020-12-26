@@ -1,0 +1,27 @@
+hostname //computername
+net use z: \\%computername%\temp
+
+set testingfile=500MiB.bin
+xcopy /Z C:\Windows\%testingfile% \\%computername%\temp\%testingfile%
+
+echo on
+set tasker=copytask
+set /a t1_h=%time:~0,2%+0
+set /a t1_m=%time:~3,2%+1
+set /a s3= t1_h * 60 * 60 * 100 + t1_m * 60 * 100
+set /a t3_h= s3 / 100 / 60 / 60
+set /a t3_m= s3 %% (100 * 60 * 60) / 100 / 60
+if %t3_m% LSS 10 (
+    set t3_m=0%t3_m%
+)
+if %t3_h% LSS 10 (
+    set t3_h=0%t3_h%
+)
+set t3=%t3_h%:%t3_m%
+echo %t3%
+
+echo y | schtasks /create /SC once /TN %tasker% /TR "C:\Lab6\coping.bat" /ST %t3_h%:%t3_m%
+
+tasklist
+Taskkill /IM xcopy.exe /F
+

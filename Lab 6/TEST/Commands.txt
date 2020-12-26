@@ -1,0 +1,17 @@
+mkdir Lab6
+cd Lab6
+systeminfo | find "Версия ОС" > systeminfo_find_Версия_ОС
+systeminfo | find "память" > systeminfo_find_Память
+echo "list disk" > scenary.txt
+diskpart /s scenary.txt > diskpart_s_scenary.txt
+more +4 diskpart_s_scenary.txt > diskpart_s_scenary.txt
+mkdir TEST
+cd TEST
+move systeminfo_find_Версия_ОС C:\Lab6\TEST
+move scenary.txt C:\Lab6\TEST
+move systeminfo_find_Память C:\Lab6\TEST
+move diskpart_s_scenary.txt C:\Lab6\TEST
+copy scenary.txt+diskpart_s_scenary.txt+systeminfo_find_Версия_ОС+systeminfo_find_Память
+del systeminfo_find_Версия_ОС
+del diskpart_s_scenary.txt
+del systeminfo_find_Память

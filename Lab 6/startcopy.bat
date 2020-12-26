@@ -1,0 +1,1 @@
+schtasks /create /SC once /TN copytasker /TR C:\Lab6\coping.bat /ST %1
